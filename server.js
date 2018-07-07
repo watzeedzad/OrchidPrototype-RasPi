@@ -3,10 +3,6 @@
 /**
  * Module dependencies.
  */
-
-let cron = require("node-schedule");
-let macaddr = require("getmac");
-
 var app = require('./app');
 var debug = require('debug')('express-react:server');
 var http = require('http');
@@ -33,13 +29,6 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 console.log("Server is start and listen on port 3000!");
-let tempTest = cron.scheduleJob("*/1 * * * *", function () {
-  console.log(new Date(), "Every 1 min.");
-  macaddr.getMac(function (err, macAddress) {
-    if (err) throw err
-    console.log(macAddress)
-  })
-});
 
 /**
  * Normalize a port into a number, string, or false.
