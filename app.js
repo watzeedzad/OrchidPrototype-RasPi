@@ -11,6 +11,7 @@ require("dotenv").config();
 db_host = process.env.DB_HOST;
 db_user = process.env.DB_USER;
 db_pass = process.env.DB_PASS;
+server_host = process.env.SERVER_HOST;
 macAddressGlobal = "";
 
 macAddr.getMac(function (err, mac) {

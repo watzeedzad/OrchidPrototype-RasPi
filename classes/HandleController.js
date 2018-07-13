@@ -60,10 +60,10 @@ function sendGreenHouseRequest(
     soilMoisture: soilMoisture,
     ambientLight: ambientLight,
     ip: address,
-    host: DDNS
+    macAddress: macAddressGlobal
   };
   request.post({
-      url: DDNS + "/sensorRoutes/greenHouseSensor",
+      url: server_host + "/sensorRoutes/greenHouseSensor",
       form: greenHouseData
     },
     function (err, httpResponse, body) {
@@ -83,7 +83,7 @@ function sendProjectRequest(address, soilFertilizer) {
   var projectData = {
     soilFertilizer: soilFertilizer,
     ip: address,
-    host: DDNS
+    macAddress: macAddressGlobal
   };
   request.post({
       url: DDNS + "/sensorRoutes/projectSensor",
