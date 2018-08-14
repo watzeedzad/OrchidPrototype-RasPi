@@ -143,10 +143,35 @@ export default class HandleController {
   }
 }
 
-async function saveTempGreenHouseData() {
-
+async function saveTempGreenHouseData(ip, piMacAddress, temperature, humidity, soilMoisture, ambientLight) {
+  let newTempGreenHouseData = {
+    ip: ip,
+    piMacAddress: piMacAddress,
+    temperature: temperature,
+    humidity: humidity,
+    soilMoisture: soilMoisture,
+    ambientLight: ambientLight,
+  }
+  new tempGreenHouseData(newTempGreenHouseData).save(function (err) {
+    if (!err) {
+      console.log("[HandleController] created new temp greenhouse data");
+    } else {
+      return console.log(err);
+    }
+  })
 }
 
-async function saveTempProjectData() {
-
+async function saveTempProjectData(ip, piMacAddress, soilFertility) {
+  let newTempProjectData = {
+    ip: ip,
+    piMacAddress: piMacAddress,
+    soilFertility: soilFertility
+  }
+  new tempProjectData(newTempProjectData).save(function (err) {
+    if (!err) {
+      console.log("[HandleController] created new temp project data");
+    } else {
+      return console.log(err);
+    }
+  });
 }
