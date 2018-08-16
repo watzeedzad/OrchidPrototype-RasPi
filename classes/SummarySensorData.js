@@ -17,10 +17,10 @@ export default class SummarySernsorData {
         let rawTempGreenHouseData = {};
         let rawTempProjectData = {};
         for (let index = 0; index < tempGreenHouseDataResult.length; index++) {
-
+            
         }
         for (let index = 0; index < tempProjectDataResult.length; index++) {
-            
+
         }
     }
 }
