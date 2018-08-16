@@ -11,7 +11,9 @@ const tempGreenHouseDataSchema = new Schema({
     temperature: Number,
     humidity: Number,
     soilMoisture: Number,
-    ambientLight: Number
+    ambientLight: Number,
+    farmId: Number,
+    greenHouseId: Number
 });
 
 tempGreenHouseDataSchema.plugin(autoIncrement, {

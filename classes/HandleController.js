@@ -142,7 +142,7 @@ export default class HandleController {
         res.sendStatus(500);
         return;
       }
-      await saveTempGreenHouseData(ip, macAddressGlobal, temp, humid, soilMoisture, ambientLight);
+      await saveTempGreenHouseData(ip, macAddressGlobal, temp, humid, soilMoisture, ambientLight, knowControllerResultData.farmId, knowControllerResultData.greenHouseId);
       if (saveTempGreenHouseDataResult) {
         res.sendStatus(200);
       } else {
@@ -153,7 +153,7 @@ export default class HandleController {
         res.sendStatus(500);
         return;
       }
-      await saveTempProjectData(ip, macAddressGlobal, soilFertilizer);
+      await saveTempProjectData(ip, macAddressGlobal, soilFertilizer, knowControllerResultData.farmId, knowControllerResultData.projectId);
       if (saveTempProjectDataResult) {
         res.sendStatus(200);
       } else {
@@ -163,7 +163,7 @@ export default class HandleController {
   }
 }
 
-async function saveTempGreenHouseData(ip, piMacAddress, temperature, humidity, soilMoisture, ambientLight) {
+async function saveTempGreenHouseData(ip, piMacAddress, temperature, humidity, soilMoisture, ambientLight, farmId, greenHouseId) {
   let newTempGreenHouseData = {
     ip: ip,
     piMacAddress: piMacAddress,
@@ -171,6 +171,8 @@ async function saveTempGreenHouseData(ip, piMacAddress, temperature, humidity, s
     humidity: humidity,
     soilMoisture: soilMoisture,
     ambientLight: ambientLight,
+    farmId: farmId,
+    greenHouseId: greenHouseId
   }
   new tempGreenHouseData(newTempGreenHouseData).save(function (err) {
     if (!err) {
@@ -182,11 +184,13 @@ async function saveTempGreenHouseData(ip, piMacAddress, temperature, humidity, s
   })
 }
 
-async function saveTempProjectData(ip, piMacAddress, soilFertilizer) {
+async function saveTempProjectData(ip, piMacAddress, soilFertilizer, farmId, projecrId) {
   let newTempProjectData = {
     ip: ip,
     piMacAddress: piMacAddress,
-    soilFertilizer: soilFertilizer
+    soilFertilizer: soilFertilizer,
+    farmId: farmId,
+    projectId: projectId
   }
   new tempProjectData(newTempProjectData).save(function (err) {
     if (!err) {
@@ -203,7 +207,7 @@ async function isMappedController(ip, piMacAddress) {
     ip: ip,
     piMacAddress: piMacAddress
   }, function (err, result) {
-    if (!err) {
+    if (err) {
       knowControllerResultData = undefined;
       console.log("[HandleController] isMappedController (!err): " + err)
     } else if (!result) {

@@ -8,7 +8,9 @@ const {
 const tempProjectDataSchema = ({
     ip: String,
     piMacAddress: String,
-    soilFertility: Number
+    soilFertility: Number,
+    farmId: Number,
+    projectId: Number
 });
 
 tempProjectDataSchema.plugin(autoIncrement, {

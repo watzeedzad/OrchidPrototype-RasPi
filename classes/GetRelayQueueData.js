@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const macAddr = require("getmac");
 const relayQueue = mongoose.model("relay_queue");
 const request = require("request");
 
@@ -28,7 +27,7 @@ export default class GetRalayQueueData {
 }
 
 async function getRelayQueueData(macAddress) {
-    let result = await relayQueue.find({
+    await relayQueue.find({
             macAddress: macAddress
         }, {}, {
             sort: {
@@ -37,7 +36,10 @@ async function getRelayQueueData(macAddress) {
         },
         (err, result) => {
             if (err) {
-                console.log("[GetRelayQueueData] getRelayQueueData, Query Failed!");
+                console.log("[GetRelayQueueData] getRelayQueueData (err): " + err);
+                relayQueueData = undefined;
+            } else if (!result){
+                console.log("[GetRelayQueueData] getRelayQueueData (!result): " + result);
                 relayQueueData = undefined;
             } else {
                 relayQueueData = result;
@@ -50,7 +52,7 @@ function removeRelayQueue(macAddress) {
     relayQueue.remove({
             macAddress: macAddress
         },
-        err => {
+        (err) => {
             if (err) {
                 console.log("[GetRelayQueueData] removeRelayQueue, delete failed!");
             } else {
