@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const relayManualQueue = mongoose.model("")
+const relayManualQueue = mongoose.model("relay_manual_queue")
 const request = require("request");
 
 let relayManualQueueData;

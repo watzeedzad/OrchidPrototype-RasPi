@@ -35,20 +35,25 @@ mongoose.promise = global.promise;
 //Mongoose connect
 mongoose.Promise = global.Promise;
 let connection = mongoose
-  .connect(keys.mongoURI)
+  .connect(keys.mongoURI, {
+    useNewUrlParser: true
+  })
   .then(console.log("MongoDb Connected"))
   .catch(err => {
     if (err) {
-      return handleError(err);
+      console.log(err);
     }
   });
 
 //load model
 require("./models/relayQueue");
+require("./models/relayManualQueue");
+require("./models/knowController");
+require("./models/tempGreenHouseData");
+require("./models/tempProjectData");
 
 var indexRouter = require('./routes/index');
 var handleControllerRouter = require("./routes/handleController");
-var handleRelayRouter = require("./routes/handleRelay");
 
 var app = express();
 
@@ -66,7 +71,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use("/handleController", handleControllerRouter);
-app.use("handleRelay", handleRelayRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -85,9 +89,11 @@ app.use(function (err, req, res, next) {
 });
 
 let GetRalayQueueData = require("./classes/GetRelayQueueData");
+let GetManualRelayQueueData = require("./classes/GetManualRelayQueueData");
 
 let tempTest = cron.scheduleJob("*/1 * * * *", function () {
   new GetRalayQueueData.default();
+  new GetManualRelayQueueData.default();
 });
 
 module.exports = app;

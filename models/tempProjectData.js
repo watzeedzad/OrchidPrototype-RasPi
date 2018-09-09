@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-const autoIncrement = require("mongoose-sequence");
+const autoIncrement = require("mongoose-sequence")(mongoose);
 
 const {
     Schema
 } = mongoose;
 
-const tempProjectDataSchema = ({
+const tempProjectDataSchema = new Schema({
     ip: String,
     piMacAddress: String,
     soilFertility: Number,
