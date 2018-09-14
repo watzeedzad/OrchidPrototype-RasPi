@@ -20,6 +20,7 @@ macAddr.getMac(function (err, mac) {
   }
   let splitChar = mac[2];
   macAddressGlobal = (mac.split(splitChar)).toString();
+  macAddressGlobal = macAddressGlobal.toLowerCase();
 });
 
 //load babel(es6)

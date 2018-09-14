@@ -15,7 +15,7 @@ export default class GetManualRelayQueueData {
         for (let index = 0; index <= relayManualQueueData.length; index++) {
             if (index == relayManualQueueData.length) {
                 console.log("[GetManualRelayQueueData] last loop reach at index " + index);
-                // removeRelayQueue(macAddressGlobal);
+                removeRelayQueue(macAddressGlobal);
             } else {
                 let ip = relayManualQueueData[index].ip;
                 let type = relayManualQueueData[index].pumpType;
@@ -27,6 +27,7 @@ export default class GetManualRelayQueueData {
 }
 
 async function getManualRelayQueueData(macAddress) {
+    console.log("[GetManualRelayQueueData] getManualRelayQueueData: " + macAddress);
     await relayManualQueue.find({
             macAddress: macAddress
         }, {}, {
@@ -49,7 +50,7 @@ async function getManualRelayQueueData(macAddress) {
 }
 
 function removeRelayQueue(macAddress) {
-    relayQueue.remove({
+    relayManualQueue.remove({
             macAddress: macAddress
         },
         (err) => {
