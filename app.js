@@ -57,10 +57,6 @@ var handleControllerRouter = require("./routes/handleController");
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -72,28 +68,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use("/handleController", handleControllerRouter);
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
 let GetRalayQueueData = require("./classes/GetRelayQueueData");
 let GetManualRelayQueueData = require("./classes/GetManualRelayQueueData");
 
 let tempTest = cron.scheduleJob("*/1 * * * *", function () {
   new GetRalayQueueData.default();
   new GetManualRelayQueueData.default();
+});
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  var err = new Error("Not Found");
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+app.use(function (err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.send("404: File Not Found");
 });
 
 module.exports = app;
