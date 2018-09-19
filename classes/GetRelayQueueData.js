@@ -29,7 +29,7 @@ export default class GetRalayQueueData {
 async function getRelayQueueData(macAddress) {
     console.log("[GetRelayQueueData] getRelayQueueData: " + macAddress);
     await relayQueue.find({
-            macAddress: macAddress
+            piMacAddress: macAddress
         }, {}, {
             sort: {
                 _id: 1
@@ -51,7 +51,7 @@ async function getRelayQueueData(macAddress) {
 
 function removeRelayQueue(macAddress) {
     relayQueue.remove({
-            macAddress: macAddress
+            piMacAddress: macAddress
         },
         (err) => {
             if (err) {

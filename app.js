@@ -72,7 +72,7 @@ app.use("/handleController", handleControllerRouter);
 let GetRalayQueueData = require("./classes/GetRelayQueueData");
 let GetManualRelayQueueData = require("./classes/GetManualRelayQueueData");
 
-let tempTest = cron.scheduleJob("*/1 * * * *", function () {
+let tempTest = cron.scheduleJob("*/30 * * * * *", function () {
   new GetRalayQueueData.default();
   new GetManualRelayQueueData.default();
 });
