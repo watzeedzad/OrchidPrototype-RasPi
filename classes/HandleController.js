@@ -177,14 +177,15 @@ async function saveTempGreenHouseData(ip, piMacAddress, temperature, humidity, s
   new tempGreenHouseData(newTempGreenHouseData).save(function (err) {
     if (!err) {
       console.log("[HandleController] created new temp greenhouse data");
+      saveTempGreenHouseDataResult = true;
     } else {
       console.log(err);
-      saveTempGreenHouseDataResult = true;
+      saveTempGreenHouseDataResult = false;
     }
   })
 }
 
-async function saveTempProjectData(ip, piMacAddress, soilFertilizer, farmId, projecrId) {
+async function saveTempProjectData(ip, piMacAddress, soilFertilizer, farmId, projectId) {
   let newTempProjectData = {
     ip: ip,
     piMacAddress: piMacAddress,
@@ -195,14 +196,17 @@ async function saveTempProjectData(ip, piMacAddress, soilFertilizer, farmId, pro
   new tempProjectData(newTempProjectData).save(function (err) {
     if (!err) {
       console.log("[HandleController] created new temp project data");
+      saveTempProjectDataResult = true;
     } else {
       console.log(err);
-      saveTempProjectDataResult = true;
+      saveTempProjectDataResult = false;
     }
   });
 }
 
 async function isMappedController(ip, piMacAddress) {
+  console.log("[HandleController] isMappedController (ip): " + ip);
+  console.log("[HandleControoler] isMappedController (piMacAddress): " + piMacAddress);
   await knowController.findOne({
     ip: ip,
     piMacAddress: piMacAddress

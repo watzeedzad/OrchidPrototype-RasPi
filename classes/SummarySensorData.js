@@ -95,6 +95,10 @@ export default class SummarySernsorData {
             temp.soilFertility = simpleStats.mean(temp.soilFertility);
             rawTempProjectData[index] = temp;
         }
+        console.log("[SummarySensorData] rawTempGreenHouseData: ");
+        console.log(rawTempGreenHouseData)
+        console.log("[SummarySensorData] rawTempProjectData: ");
+        console.log(rawTempProjectData);
     }
 }
 
@@ -133,7 +137,7 @@ async function getTempProjectData(piMacAddress) {
             tempProjectDataResult = undefined;
             console.log("[SummarySensorData] getTEmpPorjectData (!result): " + result);
         } else {
-            tempProjectData = result;
+            tempProjectDataResult = result;
         }
     })
 }
