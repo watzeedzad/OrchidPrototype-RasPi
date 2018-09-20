@@ -121,7 +121,7 @@ export default class HandleController {
     let humid = req.body.humidity;
     let soilMoisture = req.body.soilMoisture;
     let ambientLight = req.body.ambientLight;
-    let soilFertilizer = req.body.soilFertilizer;
+    let soilFertility = req.body.soilFertility;
     let type = req.body.type;
     if (typeof type === "undefined" || typeof ip === "undefined") {
       res.sendStatus(500);
@@ -153,7 +153,7 @@ export default class HandleController {
         res.sendStatus(500);
         return;
       }
-      await saveTempProjectData(ip, macAddressGlobal, soilFertilizer, knowControllerResultData.farmId, knowControllerResultData.projectId);
+      await saveTempProjectData(ip, macAddressGlobal, soilFertility, knowControllerResultData.farmId, knowControllerResultData.projectId);
       if (saveTempProjectDataResult) {
         res.sendStatus(200);
       } else {
@@ -185,11 +185,11 @@ async function saveTempGreenHouseData(ip, piMacAddress, temperature, humidity, s
   })
 }
 
-async function saveTempProjectData(ip, piMacAddress, soilFertilizer, farmId, projectId) {
+async function saveTempProjectData(ip, piMacAddress, soilFertility, farmId, projectId) {
   let newTempProjectData = {
     ip: ip,
     piMacAddress: piMacAddress,
-    soilFertilizer: soilFertilizer,
+    soilFertility: soilFertility,
     farmId: farmId,
     projectId: projectId
   }

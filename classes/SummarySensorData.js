@@ -44,7 +44,7 @@ export default class SummarySernsorData {
                 unAvgData = {
                     farmId: tempGreenHouseDataResult[index].farmId,
                     greenHouseId: tempGreenHouseDataResult[index].greenHouseId,
-                    ip: tempGreenHouseDataResult[index].ip,
+                    // ip: tempGreenHouseDataResult[index].ip,
                     piMacAddress: tempGreenHouseDataResult[index].piMacAddress,
                     temperature: [tempGreenHouseDataResult[index].temperature],
                     humidity: [tempGreenHouseDataResult[index].humidity],
@@ -61,7 +61,7 @@ export default class SummarySernsorData {
                 unAvgData = {
                     farmId: tempProjectDataResult[index].farmId,
                     projectId: tempProjectDataResult[index].projectId,
-                    ip: tempProjectDataResult[index].ip,
+                    // ip: tempProjectDataResult[index].ip,
                     piMacAddress: tempProjectDataResult[index].piMacAddress,
                     soilFertility: [tempProjectDataResult[index].soilFertility]
                 }
