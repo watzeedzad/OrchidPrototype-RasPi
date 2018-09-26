@@ -123,6 +123,13 @@ export default class HandleController {
     let ambientLight = req.body.ambientLight;
     let soilFertility = req.body.soilFertility;
     let type = req.body.type;
+    console.log("[HandleController] ip: " + ip);
+    console.log("[HandleController] temp: " + temp);
+    console.log("[HandleController] humid: " + humid);
+    console.log("[HandleController] soilMoisture: " + soilMoisture);
+    console.log("[HandleController] ambientLight: " + ambientLight);
+    console.log("[HandleController] soilFertility: " + soilFertility);
+    console.log("[HandleController] type: " + type);
     if (typeof type === "undefined" || typeof ip === "undefined") {
       res.sendStatus(500);
       return;
