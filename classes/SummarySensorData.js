@@ -103,7 +103,13 @@ export default class SummarySernsorData {
       rawTempProjectData[index] = temp;
       sendSummarizeData(rawTempProjectData[index], "projcet");
     }
+    deleteData();
   }
+}
+
+async function deleteData() {
+  await tempGreenHouseData.remove();
+  await tempProjectData.remove();
 }
 
 async function getTempGreenHouseData(piMacAddress) {
@@ -157,10 +163,10 @@ async function getTempProjectData(piMacAddress) {
 function sendSummarizeData(dataArray, type) {
   let sendDataUrl;
   if (type == "greenHouse") {
-    sendDataUrl = "http://localhost:3001/sensorRoutes/greenHouseSensor";
+    sendDataUrl = "http://192.168.1.101:3001/sensorRoutes/greenHouseSensor";
 
   } else if (type == "project") {
-    sendDataUrl = "http://localhost:3001/sensorRoutes/projectSensor";
+    sendDataUrl = "http://192.168.1.101:3001/sensorRoutes/projectSensor";
   }
   request.post({
     url: sendDataUrl,
