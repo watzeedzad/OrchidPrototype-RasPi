@@ -13,8 +13,9 @@ export default class SummarySernsorData {
   }
 
   async operation(req, res) {
-    await getTempGreenHouseData(macAddressGlobal);
-    await getTempProjectData(macAddressGlobal);
+    console.log("Summary data begin!")
+    await getTempGreenHouseData("b8,27,eb,a7,78,ad");
+    await getTempProjectData("b8,27,eb,a7,78,ad");
     let rawTempGreenHouseData = [];
     let rawTempProjectData = [];
     let currentRawTempGreenHouseIndex = 0;
@@ -151,7 +152,7 @@ async function getTempProjectData(piMacAddress) {
       } else if (!result) {
         tempProjectDataResult = undefined;
         console.log(
-          "[SummarySensorData] getTEmpPorjectData (!result): " + result
+          "[SummarySensorData] getTempPorjectData (!result): " + result
         );
       } else {
         tempProjectDataResult = result;
@@ -163,16 +164,14 @@ async function getTempProjectData(piMacAddress) {
 function sendSummarizeData(dataArray, type) {
   let sendDataUrl;
   if (type == "greenHouse") {
-    sendDataUrl = "http://192.168.1.101:3001/sensorRoutes/greenHouseSensor";
+    sendDataUrl = "http://192.168.1.101:3001/sensorRoutes/greenHouseSensor/";
 
   } else if (type == "project") {
-    sendDataUrl = "http://192.168.1.101:3001/sensorRoutes/projectSensor";
+    sendDataUrl = "http://192.168.1.101:3001/sensorRoutes/projectSensor/";
   }
-  request.post({
-    url: sendDataUrl,
+  console.log("[SummarySensorData] sendSummarizeData: " + sendDataUrl);
+  request.post(sendDataUrl, {
     body: dataArray,
     json: true
-  }, {
-    timeout: 20000
   });
 }

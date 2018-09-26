@@ -156,7 +156,7 @@ export default class HandleController {
         res.sendStatus(500);
       }
     } else if (type == "project") {
-      if (typeof soilFertilizer === "undefined") {
+      if (typeof soilFertility === "undefined") {
         res.sendStatus(500);
         return;
       }
