@@ -15,7 +15,7 @@ export default class GetRalayQueueData {
         for (let index = 0; index <= relayQueueData.length; index++) {
             if (index == relayQueueData.length) {
                 console.log("[GetRelayQueueData] last loop reach at index " + index);
-                // removeRelayQueue(macAddressGlobal);
+                removeRelayQueue(macAddressGlobal);
             } else {
                 let ip = relayQueueData[index].ip;
                 let type = relayQueueData[index].pumpType;
@@ -27,8 +27,9 @@ export default class GetRalayQueueData {
 }
 
 async function getRelayQueueData(macAddress) {
+    console.log("[GetRelayQueueData] getRelayQueueData: " + macAddress);
     await relayQueue.find({
-            macAddress: macAddress
+            piMacAddress: macAddress
         }, {}, {
             sort: {
                 _id: 1
@@ -50,7 +51,7 @@ async function getRelayQueueData(macAddress) {
 
 function removeRelayQueue(macAddress) {
     relayQueue.remove({
-            macAddress: macAddress
+            piMacAddress: macAddress
         },
         (err) => {
             if (err) {

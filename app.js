@@ -20,6 +20,7 @@ macAddr.getMac(function (err, mac) {
   }
   let splitChar = mac[2];
   macAddressGlobal = (mac.split(splitChar)).toString();
+  macAddressGlobal = macAddressGlobal.toLowerCase();
 });
 
 //load babel(es6)
@@ -72,7 +73,7 @@ let GetRalayQueueData = require("./classes/GetRelayQueueData");
 let GetManualRelayQueueData = require("./classes/GetManualRelayQueueData");
 let SummarySensorData = require("./classes/SummarySensorData");
 
-let tempTest = cron.scheduleJob("*/1 * * * *", function () {
+let tempTest = cron.scheduleJob("*/30 * * * * *", function () {
   new GetRalayQueueData.default();
   new GetManualRelayQueueData.default();
   new SummarySensorData.default();

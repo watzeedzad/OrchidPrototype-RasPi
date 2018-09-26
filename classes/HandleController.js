@@ -121,7 +121,7 @@ export default class HandleController {
     let humid = req.body.humidity;
     let soilMoisture = req.body.soilMoisture;
     let ambientLight = req.body.ambientLight;
-    let soilFertilizer = req.body.soilFertilizer;
+    let soilFertility = req.body.soilFertility;
     let type = req.body.type;
     if (typeof type === "undefined" || typeof ip === "undefined") {
       res.sendStatus(500);
@@ -153,7 +153,7 @@ export default class HandleController {
         res.sendStatus(500);
         return;
       }
-      await saveTempProjectData(ip, macAddressGlobal, soilFertilizer, knowControllerResultData.farmId, knowControllerResultData.projectId);
+      await saveTempProjectData(ip, macAddressGlobal, soilFertility, knowControllerResultData.farmId, knowControllerResultData.projectId);
       if (saveTempProjectDataResult) {
         res.sendStatus(200);
       } else {
@@ -177,32 +177,36 @@ async function saveTempGreenHouseData(ip, piMacAddress, temperature, humidity, s
   new tempGreenHouseData(newTempGreenHouseData).save(function (err) {
     if (!err) {
       console.log("[HandleController] created new temp greenhouse data");
+      saveTempGreenHouseDataResult = true;
     } else {
       console.log(err);
-      saveTempGreenHouseDataResult = true;
+      saveTempGreenHouseDataResult = false;
     }
   })
 }
 
-async function saveTempProjectData(ip, piMacAddress, soilFertilizer, farmId, projecrId) {
+async function saveTempProjectData(ip, piMacAddress, soilFertility, farmId, projectId) {
   let newTempProjectData = {
     ip: ip,
     piMacAddress: piMacAddress,
-    soilFertilizer: soilFertilizer,
+    soilFertility: soilFertility,
     farmId: farmId,
     projectId: projectId
   }
   new tempProjectData(newTempProjectData).save(function (err) {
     if (!err) {
       console.log("[HandleController] created new temp project data");
+      saveTempProjectDataResult = true;
     } else {
       console.log(err);
-      saveTempProjectDataResult = true;
+      saveTempProjectDataResult = false;
     }
   });
 }
 
 async function isMappedController(ip, piMacAddress) {
+  console.log("[HandleController] isMappedController (ip): " + ip);
+  console.log("[HandleControoler] isMappedController (piMacAddress): " + piMacAddress);
   await knowController.findOne({
     ip: ip,
     piMacAddress: piMacAddress
