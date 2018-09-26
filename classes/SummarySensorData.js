@@ -102,7 +102,7 @@ export default class SummarySernsorData {
       let temp = rawTempProjectData[index];
       temp.soilFertility = simpleStats.mean(temp.soilFertility);
       rawTempProjectData[index] = temp;
-      sendSummarizeData(rawTempProjectData[index], "projcet");
+      sendSummarizeData(rawTempProjectData[index], "project");
     }
     deleteData();
   }
