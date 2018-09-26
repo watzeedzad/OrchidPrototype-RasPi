@@ -87,9 +87,7 @@ function onOffPump(ip, state, type) {
         command
     );
     request
-        .get("http://" + String(ip) + urlPart + "?params=" + command, {
-            timeout: 20000
-        })
+        .get("http://" + String(ip) + urlPart + "?params=" + command)
         .on("error", err => {
             console.log(err.code === "ETIMEDOUT");
             console.log(err.connect === true);
