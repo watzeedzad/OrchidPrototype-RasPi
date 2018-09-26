@@ -10,7 +10,8 @@ const tempProjectDataSchema = new Schema({
     piMacAddress: String,
     soilFertility: Number,
     farmId: Number,
-    projectId: Number
+    projectId: Number,
+    greenHouseId: Number
 });
 
 tempProjectDataSchema.plugin(autoIncrement, {

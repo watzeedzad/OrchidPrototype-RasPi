@@ -149,7 +149,7 @@ export default class HandleController {
         res.sendStatus(500);
         return;
       }
-      await saveTempGreenHouseData(ip, macAddressGlobal, temp, humid, soilMoisture, ambientLight, knowControllerResultData.farmId, knowControllerResultData.greenHouseId);
+      await saveTempGreenHouseData(ip, macAddressGlobal, temp, humid, soilMoisture, ambientLight, knowControllerResultData.farmId, knowControllerResultData.greenHouseId, knowControllerResultData.projectId);
       if (saveTempGreenHouseDataResult) {
         res.sendStatus(200);
       } else {
@@ -160,7 +160,7 @@ export default class HandleController {
         res.sendStatus(500);
         return;
       }
-      await saveTempProjectData(ip, macAddressGlobal, soilFertility, knowControllerResultData.farmId, knowControllerResultData.projectId);
+      await saveTempProjectData(ip, macAddressGlobal, soilFertility, knowControllerResultData.farmId, knowControllerResultData.projectId, knowControllerResultData.greenHouseId);
       if (saveTempProjectDataResult) {
         res.sendStatus(200);
       } else {
@@ -192,13 +192,14 @@ async function saveTempGreenHouseData(ip, piMacAddress, temperature, humidity, s
   })
 }
 
-async function saveTempProjectData(ip, piMacAddress, soilFertility, farmId, projectId) {
+async function saveTempProjectData(ip, piMacAddress, soilFertility, farmId, projectId, greenHouseId) {
   let newTempProjectData = {
     ip: ip,
     piMacAddress: piMacAddress,
     soilFertility: soilFertility,
     farmId: farmId,
-    projectId: projectId
+    projectId: projectId,
+    greenHouseId: greenHouseId
   }
   new tempProjectData(newTempProjectData).save(function (err) {
     if (!err) {
