@@ -70,10 +70,12 @@ app.use("/handleController", handleControllerRouter);
 
 let GetRalayQueueData = require("./classes/GetRelayQueueData");
 let GetManualRelayQueueData = require("./classes/GetManualRelayQueueData");
+let SummarySensorData = require("./classes/SummarySensorData");
 
 let tempTest = cron.scheduleJob("*/1 * * * *", function () {
   new GetRalayQueueData.default();
   new GetManualRelayQueueData.default();
+  new SummarySensorData.default();
 });
 
 // catch 404 and forward to error handler
