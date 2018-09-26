@@ -8,11 +8,11 @@ let tempGreenHouseDataResult;
 let tempProjectDataResult;
 
 export default class SummarySernsorData {
-  constructor(req, res) {
-    this.operation(req, res);
+  constructor() {
+    this.operation();
   }
 
-  async operation(req, res) {
+  async operation() {
     console.log("Summary data begin!")
     await getTempGreenHouseData("b8,27,eb,a7,78,ad");
     await getTempProjectData("b8,27,eb,a7,78,ad");
