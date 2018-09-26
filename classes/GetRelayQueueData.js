@@ -73,13 +73,11 @@ function onOffPump(ip, state, type) {
         urlPart = "/moisturePump";
     }
     let command = 0;
-    () => {
-        if (state) {
-            command = 0;
-        } else {
-            command = 1;
-        }
-    };
+    if (state) {
+        command = 0;
+    } else {
+        command = 1
+    }
     console.log(
         "[GetRelayQueueData] url: " +
         "http://" +
