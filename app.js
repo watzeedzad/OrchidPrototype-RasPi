@@ -6,6 +6,7 @@ var logger = require('morgan');
 let mongoose = require("mongoose");
 let cron = require("node-schedule");
 const macAddr = require("getmac");
+var cors = require("cors");
 require("dotenv").config();
 
 db_host = process.env.DB_HOST;
@@ -14,14 +15,16 @@ db_pass = process.env.DB_PASS;
 server_host = process.env.SERVER_HOST;
 macAddressGlobal = "";
 
-macAddr.getMac(function (err, mac) {
-  if (err) {
-    console.log(err);
-  }
-  let splitChar = mac[2];
-  macAddressGlobal = (mac.split(splitChar)).toString();
-  macAddressGlobal = macAddressGlobal.toLowerCase();
-});
+// macAddr.getMac(function (err, mac) {
+//   if (err) {
+//     console.log(err);
+//   }
+//   let splitChar = mac[2];
+//   macAddressGlobal = (mac.split(splitChar)).toString();
+//   macAddressGlobal = macAddressGlobal.toLowerCase();
+// });
+
+macAddressGlobal = "b8,27,eb,a7,78,ad";
 
 //load babel(es6)
 require("babel-core/register");
@@ -57,6 +60,10 @@ var indexRouter = require('./routes/index');
 var handleControllerRouter = require("./routes/handleController");
 
 var app = express();
+
+app.use(cors({
+  methods: ["GET", "POST"]
+}))
 
 app.use(logger('dev'));
 app.use(express.json());

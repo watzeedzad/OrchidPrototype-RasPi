@@ -39,7 +39,7 @@ async function getRelayQueueData(macAddress) {
             if (err) {
                 console.log("[GetRelayQueueData] getRelayQueueData (err): " + err);
                 relayQueueData = undefined;
-            } else if (!result){
+            } else if (!result) {
                 console.log("[GetRelayQueueData] getRelayQueueData (!result): " + result);
                 relayQueueData = undefined;
             } else {
@@ -86,11 +86,11 @@ function onOffPump(ip, state, type) {
         "?params=" +
         command
     );
-    request
-        .get("http://" + String(ip) + urlPart + "?params=" + command)
-        .on("error", err => {
-            console.log(err.code === "ETIMEDOUT");
-            console.log(err.connect === true);
-            console.log(err);
-        });
+    request.get({
+        url: "http://" + String(ip) + urlPart + "?params=" + command
+    }, function (error, response, body) {
+        console.log("[GetRelayQueueData] onOffPump (error): " + error);
+        console.log("[GetRelayQueueData] onOffPump (response): " + response);
+        console.log("[GetRelayQueueData] onOffPump (body): " + body);
+    });
 }

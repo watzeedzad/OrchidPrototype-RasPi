@@ -1,3 +1,7 @@
+import {
+  error
+} from "util";
+
 const mongoose = require("mongoose");
 const tempGreenHouseData = mongoose.model("temp_greenhouse_data");
 const tempProjectData = mongoose.model("temp_project_data");
@@ -13,9 +17,9 @@ export default class SummarySernsorData {
   }
 
   async operation() {
-    console.log("Summary data begin!")
-    await getTempGreenHouseData("b8,27,eb,a7,78,ad");
-    await getTempProjectData("b8,27,eb,a7,78,ad");
+    console.log("[SummarySensorData] Summary data begin!")
+    await getTempGreenHouseData(macAddressGlobal);
+    await getTempProjectData(macAddressGlobal);
     let rawTempGreenHouseData = [];
     let rawTempProjectData = [];
     let currentRawTempGreenHouseIndex = 0;
@@ -108,7 +112,7 @@ export default class SummarySernsorData {
       rawTempProjectData[index] = temp;
       sendSummarizeData(rawTempProjectData[index], "project");
     }
-    deleteData();
+    // deleteData();
   }
 }
 
@@ -168,14 +172,19 @@ async function getTempProjectData(piMacAddress) {
 function sendSummarizeData(dataArray, type) {
   let sendDataUrl;
   if (type == "greenHouse") {
-    sendDataUrl = "http://192.168.1.101:3001/sensorRoutes/greenHouseSensor/";
+    sendDataUrl = server_host + "/sensorRoutes/greenHouseSensor/";
 
   } else if (type == "project") {
-    sendDataUrl = "http://192.168.1.101:3001/sensorRoutes/projectSensor/";
+    sendDataUrl = server_host + "/sensorRoutes/projectSensor/";
   }
   console.log("[SummarySensorData] sendSummarizeData: " + sendDataUrl);
-  request.post(sendDataUrl, {
+  request.post({
+    url: sendDataUrl,
     body: dataArray,
     json: true
+  }, function (error, response, body) {
+    console.log("[SummarySensorData] sendSummarizeData (error): " + error)
+    console.log("[SummarySensorData] sendSummarizeData (response): " + response);
+    console.log("[SummarySensorData] sendSummarizeData (body): " + body);
   });
 }
