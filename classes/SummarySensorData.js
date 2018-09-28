@@ -112,7 +112,7 @@ export default class SummarySernsorData {
       rawTempProjectData[index] = temp;
       sendSummarizeData(rawTempProjectData[index], "project");
     }
-    // deleteData();
+    deleteData();
   }
 }
 
