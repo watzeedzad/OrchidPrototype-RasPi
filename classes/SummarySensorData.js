@@ -123,7 +123,10 @@ async function deleteData() {
 
 async function getTempGreenHouseData(piMacAddress) {
   await tempGreenHouseData.find({
-      piMacAddress: piMacAddress
+      piMacAddress: piMacAddress,
+      greenHouseId: {
+        $ne: null
+      }
     }, {}, {
       sort: {
         greenHouseId: 1
@@ -147,7 +150,10 @@ async function getTempGreenHouseData(piMacAddress) {
 
 async function getTempProjectData(piMacAddress) {
   await tempProjectData.find({
-      piMacAddress: piMacAddress
+      piMacAddress: piMacAddress,
+      projectId: {
+        $ne: null
+      }
     }, {}, {
       sort: {
         projectId: 1
