@@ -29,7 +29,7 @@ export default class GetManualRelayQueueData {
 async function getManualRelayQueueData(macAddress) {
     console.log("[GetManualRelayQueueData] getManualRelayQueueData: " + macAddress);
     await relayManualQueue.find({
-            macAddress: macAddress
+            piMacAddress: macAddress
         }, {}, {
             sort: {
                 _id: 1
@@ -51,7 +51,7 @@ async function getManualRelayQueueData(macAddress) {
 
 function removeRelayQueue(macAddress) {
     relayManualQueue.remove({
-            macAddress: macAddress
+            piMacAddress: macAddress
         },
         (err) => {
             if (err) {
