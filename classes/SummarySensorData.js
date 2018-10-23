@@ -99,16 +99,16 @@ export default class SummarySernsorData {
     }
     for (let index = 0; index < rawTempGreenHouseData.length; index++) {
       let temp = rawTempGreenHouseData[index];
-      temp.temperature = simpleStats.mean(temp.temperature);
-      temp.humidity = simpleStats.mean(temp.humidity);
-      temp.soilMoisture = simpleStats.mean(temp.soilMoisture);
+      temp.temperature = (simpleStats.mean(temp.temperature)).toFixed(1);
+      temp.humidity = (simpleStats.mean(temp.humidity)).toFixed(1);
+      temp.soilMoisture = (simpleStats.mean(temp.soilMoisture)).toFixed(1);
       temp.ambientLight = simpleStats.mean(temp.ambientLight);
       rawTempGreenHouseData[index] = temp;
       sendSummarizeData(rawTempGreenHouseData[index], "greenHouse");
     }
     for (let index = 0; index < rawTempProjectData.length; index++) {
       let temp = rawTempProjectData[index];
-      temp.soilFertility = simpleStats.mean(temp.soilFertility);
+      temp.soilFertility = (simpleStats.mean(temp.soilFertility)).toFixed(1);
       rawTempProjectData[index] = temp;
       sendSummarizeData(rawTempProjectData[index], "project");
     }
