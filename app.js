@@ -15,16 +15,16 @@ db_pass = process.env.DB_PASS;
 server_host = process.env.SERVER_HOST;
 macAddressGlobal = "";
 
-macAddr.getMac(function (err, mac) {
-  if (err) {
-    console.log(err);
-  }
-  let splitChar = mac[2];
-  macAddressGlobal = (mac.split(splitChar)).toString();
-  macAddressGlobal = macAddressGlobal.toLowerCase();
-});
+// macAddr.getMac(function (err, mac) {
+//   if (err) {
+//     console.log(err);
+//   }
+//   let splitChar = mac[2];
+//   macAddressGlobal = (mac.split(splitChar)).toString();
+//   macAddressGlobal = macAddressGlobal.toLowerCase();
+// });
 
-// macAddressGlobal = "b8,27,eb,a7,78,ad";
+macAddressGlobal = "b8,27,eb,a7,78,ad";
 
 //load babel(es6)
 require("babel-core/register");
@@ -55,9 +55,13 @@ require("./models/relayManualQueue");
 require("./models/knowController");
 require("./models/tempGreenHouseData");
 require("./models/tempProjectData");
+require("./models/tempFertilizeringHistory");
+require("./models/tempWateringHistory");
+require("./models/Project");
 
 var indexRouter = require('./routes/index');
 var handleControllerRouter = require("./routes/handleController");
+var handleFlowVolume = require("./routes/handleFlowVolume");
 
 var app = express();
 
@@ -75,6 +79,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use("/handleController", handleControllerRouter);
+app.use("/handleFlowVolume", handleFlowVolume);
 
 let GetRalayQueueData = require("./classes/GetRelayQueueData");
 let GetManualRelayQueueData = require("./classes/GetManualRelayQueueData");

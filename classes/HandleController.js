@@ -31,8 +31,12 @@ export default class HandleController {
       res.sendStatus(500);
       return;
     }
-    await isMappedController(ip, macAddressGlobal);
-    if (typeof knowControllerResultData === "undefined") {
+    knowControllerResultData = await isMappedController(ip, macAddressGlobal);
+    if (knowControllerResultData == null) {
+      res.sendStatus(200);
+      return;
+    }
+    if (typeof knowControllerResultData.greenHouseId === "undefined") {
       res.sendStatus(200);
       return;
     }
@@ -112,7 +116,7 @@ async function saveTempProjectData(ip, piMacAddress, soilFertility, farmId, proj
 async function isMappedController(ip, piMacAddress) {
   console.log("[HandleController] isMappedController (ip): " + ip);
   console.log("[HandleControoler] isMappedController (piMacAddress): " + piMacAddress);
-  await knowController.findOne({
+  let result = await knowController.findOne({
     ip: ip,
     piMacAddress: piMacAddress
   }, function (err, result) {
@@ -126,4 +130,5 @@ async function isMappedController(ip, piMacAddress) {
       knowControllerResultData = result;
     }
   });
+  return result;
 }
