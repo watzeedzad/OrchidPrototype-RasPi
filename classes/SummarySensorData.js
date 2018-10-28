@@ -1,7 +1,3 @@
-import {
-  error
-} from "util";
-
 const mongoose = require("mongoose");
 const tempGreenHouseData = mongoose.model("temp_greenhouse_data");
 const tempProjectData = mongoose.model("temp_project_data");
