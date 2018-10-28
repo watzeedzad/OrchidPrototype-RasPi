@@ -6,9 +6,10 @@ def get_mac():
     mac_num = hex(uuid.getnode()).replace('0x', '').upper()
     mac = ':'.join(mac_num[i : i + 2] for i in range(0, 11, 2))
     return mac
+r
 while True:
     try:
-        macaddress = get_mac()
+        macAddress = get_mac()
         with open("/var/lib/misc/dnsmasq.leases", "r") as ipPollFile:
             ipPollData = ipPollFile.readlines()
         print(ipPollData)
