@@ -16,6 +16,9 @@ async function operation() {
 
     PythonShell.run("getIpPool.py", pythonOption, function (err, result) {
         if (err) throw err;
+        if (result.length == 0) {
+            return;
+        }
         console.log("[CallGetIpPoolScript] result: " + result);
     });
 }
