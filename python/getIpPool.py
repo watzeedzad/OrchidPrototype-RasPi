@@ -6,17 +6,12 @@ def get_mac():
     mac_num = hex(uuid.getnode()).replace('0x', '').upper()
     mac = ':'.join(mac_num[i : i + 2] for i in range(0, 11, 2))
     return mac
-r
-while True:
-    try:
-        macAddress = get_mac()
-        with open("/var/lib/misc/dnsmasq.leases", "r") as ipPollFile:
-            ipPollData = ipPollFile.readlines()
-        print(ipPollData)
-        r = requests.post("https://orchidcareapidev.careerity.me/dynamicControllerHandle", data={'ipPoolData': ipPollData, 'piMacAddress': macAddress}, timeout=20)
-    except requests.exceptions.ConnectionError:
-        print("Connection error occur retry...")
-        r.connection.close()
-        time.sleep(30)
-        get_mac()
-    time.sleep(20)
+try:
+    macAddress = get_mac()
+    with open("/var/lib/misc/dnsmasq.leases", "r") as ipPollFile:
+       ipPollData = ipPollFile.readlines()
+    print(ipPollData)
+    r = requests.post("http://192.168.1.151:3001/dynamicControllerHandle", data={'ipPoolData': ipPollData, 'piMacAddress': macAddress}, timeout=20)
+except requests.exceptions.ConnectionError:
+    print("Connection error occur, exit script")
+    sys.exit(1)
