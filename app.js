@@ -84,11 +84,13 @@ app.use("/handleFlowVolume", handleFlowVolume);
 let GetRalayQueueData = require("./classes/GetRelayQueueData");
 let GetManualRelayQueueData = require("./classes/GetManualRelayQueueData");
 let SummarySensorData = require("./classes/SummarySensorData");
+let CallGetIpPoolScript = require("./classes/CallGetIpPoolScript");
 
 let tempTest = cron.scheduleJob("*/30 * * * * *", function () {
-  new GetRalayQueueData.default();
-  new GetManualRelayQueueData.default();
-  new SummarySensorData.default();
+  // new GetRalayQueueData.default();
+  // new GetManualRelayQueueData.default();
+  // new SummarySensorData.default();
+  new CallGetIpPoolScript.default();
 });
 
 // catch 404 and forward to error handler

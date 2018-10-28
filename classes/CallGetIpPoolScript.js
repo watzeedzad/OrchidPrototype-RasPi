@@ -1,4 +1,4 @@
-const pythonShell = require("python-shell");
+import {PythonShell} from "python-shell";
 
 export default class CallGetIpPoolScript {
     constructor(){
@@ -14,11 +14,8 @@ async function operation() {
         scriptPath: "../python"
     }
 
-    pythonShell.run("getIpPool.py", pythonOption, function (err, result) {
-        if (err) {
-            console.log("[CallGetIpPoolScript] err: " + err);
-            return;
-        }
+    PythonShell.run("getIpPool.py", pythonOption, function (err, result) {
+        if (err) throw err;
         console.log("[CallGetIpPoolScript] result: " + result);
     });
 }
