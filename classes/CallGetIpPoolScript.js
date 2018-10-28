@@ -11,7 +11,7 @@ async function operation() {
         mode: "text",
         pythonPath: "/usr/bin/python",
         pythonOptions: ["-u"],
-        scriptPath: "../python"
+        scriptPath: "/"
     }
 
     PythonShell.run("getIpPool.py", pythonOption, function (err, result) {
