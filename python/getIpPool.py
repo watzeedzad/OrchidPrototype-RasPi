@@ -11,7 +11,6 @@ try:
     with open("/var/lib/misc/dnsmasq.leases", "r") as ipPollFile:
        ipPollData = ipPollFile.readlines()
     print(ipPollData)
-    r = requests.post("http://192.168.1.151:3001/dynamicControllerHandle", data={'ipPoolData': ipPollData, 'piMacAddress': macAddress}, timeout=20)
+    # r = requests.post("http://192.168.1.151:3001/dynamicControllerHandle", data={'ipPoolData': ipPollData, 'piMacAddress': macAddress}, timeout=20)
 except requests.exceptions.ConnectionError:
-    print("Connection error occur, exit script")
-    sys.exit(1)
+    print("connection_error")
