@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import time, requests, uuid
 from uuid import getnode as get_mac
+from requests.exceptions import ConnectionError
 
 def get_mac():
     mac_num = hex(uuid.getnode()).replace('0x', '').upper()
@@ -9,10 +10,10 @@ def get_mac():
     with open("/var/lib/misc/dnsmasq.leases", "r") as ipPollFile:
         ipPollData = ipPollFile.readlines()
     print(ipPollData)
-    r = requests.post("https://orchidcareapidev.careerity.me/dynamicControllerHandle", data={'ipPoolData': ipPollData, 'piMacAddress': macAddress})
-    time.sleep(20)
+    r = requests.post("https://orchidcareapidev.careerity.me/dynamicControllerHandle", data={'ipPoolData': ipPollData, 'piMacAddress': macAddress}, timeout=20)
 while True:
     try:
         get_mac()
-    except:
+    except ConnectionError:
         get_mac()
+    time.sleep(20)
