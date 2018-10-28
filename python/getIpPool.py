@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import time, requests, uuid
 from uuid import getnode as get_mac
-from requests.exceptions import ConnectionError
 
 def get_mac():
     mac_num = hex(uuid.getnode()).replace('0x', '').upper()
@@ -14,6 +13,7 @@ def get_mac():
 while True:
     try:
         get_mac()
-    except ConnectionError:
+    except requests.exceptions.ConnectionError:
+        print("Connection error occur retry...")
         get_mac()
     time.sleep(20)
