@@ -14,7 +14,7 @@ export default class HandleFlowVolume {
 }
 
 async function operation(req, res) {
-    let pumpType = req.body.pumpType;
+    let pumpType = req.body.type;
     let volume = req.body.volume;
     let ip = req.body.ip;
 
