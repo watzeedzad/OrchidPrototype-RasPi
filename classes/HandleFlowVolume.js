@@ -19,6 +19,7 @@ async function operation(req, res) {
     let ip = req.body.ip;
 
     if (typeof pumpType === "undefined" || typeof volume === "undefined" || typeof ip == "undefined") {
+        console.log("[HandleFlowVolume] one of require parameter is undefined: " + pumpType, volume, ip);
         res.sendStatus(500);
         return;
     }
@@ -34,6 +35,7 @@ async function operation(req, res) {
     }
 
     if (pumpType == "water") {
+        console.log("[HandleFlowVolume] enter check \"water\" pumpType case");
         let result = await saveTempHistoryData(
             "water",
             volume,
@@ -51,12 +53,15 @@ async function operation(req, res) {
         //     return;
         // }
     } else if (pumpType == "fertilizer") {
+        console.log("[HandleFlowVolume] enter check \"fertilizer\" pumpType case");
         if (controllerResultData.projectId == null) {
+            console.log("[HandleFlowVolume] projectId in controller is null");
             res.sendStatus(500);
             return;
         }
         projectResultData = await getProjectData(controllerResultData.farmId, controllerResultData.projectId);
         if (projectResultData == null) {
+            console.log("[HandleFlowVolume] project data is null");
             res.sendStatus(500);
             return;
         }
