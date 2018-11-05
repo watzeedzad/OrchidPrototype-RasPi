@@ -71,6 +71,8 @@ function onOffPump(ip, state, type) {
         urlPart = "/fertilizerPump";
     } else if (type == "moisture") {
         urlPart = "/moisturePump";
+    } else if (type == "light") {
+        urlPart = "/light"
     }
     let command = 0;
     if (state) {
