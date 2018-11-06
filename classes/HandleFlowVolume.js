@@ -36,13 +36,20 @@ async function operation(req, res) {
 
     if (pumpType == "water") {
         console.log("[HandleFlowVolume] enter check \"water\" pumpType case");
-        let result = await saveTempHistoryData(
+        await saveTempHistoryData(
             "water",
             volume,
             controllerResultData.farmId,
             controllerResultData.greenHouseId,
             null,
-            null
+            null,
+            function (saveTempHistoryDataResult) {
+                if (saveTempHistoryDataResult) {
+                    res.sendStatus(200);
+                } else {
+                    res.sendStatus(500);
+                }
+            }
         );
         // console.log("[HandleFlowVolume] result: " + result);
         // if (result) {
@@ -65,13 +72,20 @@ async function operation(req, res) {
             res.sendStatus(500);
             return;
         }
-        let result = await saveTempHistoryData(
+        await saveTempHistoryData(
             "fertilizer",
             volume,
             controllerResultData.farmId,
             null,
             projectResultData.projectId,
-            projectResultData.currentRatio
+            projectResultData.currentRatio,
+            function (saveTempHistoryDataResult) {
+                if (saveTempHistoryDataResult) {
+                    res.sendStatus(200);
+                } else {
+                    res.sendStatus(500);
+                }
+            }
         );
         // console.log("[HandleFlowVolume] result: " + result);
         // if (result) {
@@ -123,8 +137,9 @@ async function getProjectData(farmId, projectId) {
     return result;
 }
 
-async function saveTempHistoryData(type, volume, farmId, greenHouseId, projectId, ratio) {
-    let result;
+async function saveTempHistoryData(type, volume, farmId, greenHouseId, projectId, ratio, callback) {
+    let saveTempHistoryDataResult;
+
     if (type == "water") {
         let newData = {
             farmId: farmId,
@@ -134,14 +149,14 @@ async function saveTempHistoryData(type, volume, farmId, greenHouseId, projectId
         }
         await tempAutoWatering(newData).save(function (err) {
             if (err) {
-                result = false;
+                saveTempHistoryDataResult = false;
                 console.log("[HandleFlowValue] saveTempHistoryData (err): " + err);
             } else {
-                result = true;
+                saveTempHistoryDataResult = true;
                 console.log("[HandleGlowValue] saveTempHistoryData: create new water data");
             }
+            callback(saveTempHistoryDataResult);
         });
-        return result;
     } else if (type == "fertilizer") {
         let newData = {
             farmId: farmId,
@@ -152,13 +167,13 @@ async function saveTempHistoryData(type, volume, farmId, greenHouseId, projectId
         }
         await tempAutoFertilizering(newData).save(function (err) {
             if (err) {
-                result = false;
+                saveTempHistoryDataResult = false;
                 console.log("[HandleFlowVolume] saveTempHistotyData (err): " + err);
             } else {
-                result = true;
+                saveTempHistoryDataResult = true;
                 console.log("[HandleFlowVolume] saveTempHistoryData: create new fertilizer data");
             }
+            callback(saveTempHistoryDataResult);
         });
-        return result;
     }
 }

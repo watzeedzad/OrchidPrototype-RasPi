@@ -4,8 +4,6 @@ const tempProjectData = mongoose.model("temp_project_data");
 const knowController = mongoose.model("know_controller");
 
 let knowControllerResultData;
-let saveTempGreenHouseDataResult = false;
-let saveTempProjectDataResult = false;
 
 export default class HandleController {
   constructor(req, res) {
@@ -50,28 +48,32 @@ export default class HandleController {
         res.sendStatus(500);
         return;
       }
-      await saveTempGreenHouseData(ip, macAddressGlobal, temp, humid, soilMoisture, ambientLight, knowControllerResultData.farmId, knowControllerResultData.greenHouseId, knowControllerResultData.projectId);
-      if (saveTempGreenHouseDataResult) {
-        res.sendStatus(200);
-      } else {
-        res.sendStatus(500);
-      }
+      await saveTempGreenHouseData(ip, macAddressGlobal, temp, humid, soilMoisture, ambientLight, knowControllerResultData.farmId, knowControllerResultData.greenHouseId, knowControllerResultData.projectId, function (saveTempGreenHouseDataResult) {
+        if (saveTempGreenHouseDataResult) {
+          res.sendStatus(200);
+        } else {
+          res.sendStatus(500);
+        }
+      });
     } else if (type == "project") {
       if (typeof soilFertility === "undefined") {
         res.sendStatus(500);
         return;
       }
-      await saveTempProjectData(ip, macAddressGlobal, soilFertility, knowControllerResultData.farmId, knowControllerResultData.projectId, knowControllerResultData.greenHouseId);
-      if (saveTempProjectDataResult) {
-        res.sendStatus(200);
-      } else {
-        res.sendStatus(500);
-      }
+      await saveTempProjectData(ip, macAddressGlobal, soilFertility, knowControllerResultData.farmId, knowControllerResultData.projectId, knowControllerResultData.greenHouseId, function (saveTempProjectDataResult) {
+        if (saveTempProjectDataResult) {
+          res.sendStatus(200);
+        } else {
+          res.sendStatus(500);
+        }
+      });
     }
   }
 }
 
-async function saveTempGreenHouseData(ip, piMacAddress, temperature, humidity, soilMoisture, ambientLight, farmId, greenHouseId) {
+async function saveTempGreenHouseData(ip, piMacAddress, temperature, humidity, soilMoisture, ambientLight, farmId, greenHouseId, callback) {
+  let saveTempGreenHouseDataResult = null;
+
   let newTempGreenHouseData = {
     ip: ip,
     piMacAddress: piMacAddress,
@@ -90,10 +92,13 @@ async function saveTempGreenHouseData(ip, piMacAddress, temperature, humidity, s
       console.log(err);
       saveTempGreenHouseDataResult = false;
     }
-  })
+    callback(saveTempGreenHouseDataResult);
+  });
 }
 
-async function saveTempProjectData(ip, piMacAddress, soilFertility, farmId, projectId, greenHouseId) {
+async function saveTempProjectData(ip, piMacAddress, soilFertility, farmId, projectId, greenHouseId, callback) {
+  let saveTempProjectDataResult = null;
+
   let newTempProjectData = {
     ip: ip,
     piMacAddress: piMacAddress,
@@ -110,6 +115,7 @@ async function saveTempProjectData(ip, piMacAddress, soilFertility, farmId, proj
       console.log(err);
       saveTempProjectDataResult = false;
     }
+    callback(saveTempProjectDataResult);
   });
 }
 
