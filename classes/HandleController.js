@@ -48,25 +48,42 @@ export default class HandleController {
         res.sendStatus(500);
         return;
       }
-      await saveTempGreenHouseData(ip, macAddressGlobal, temp, humid, soilMoisture, ambientLight, knowControllerResultData.farmId, knowControllerResultData.greenHouseId, knowControllerResultData.projectId, function (saveTempGreenHouseDataResult) {
-        if (saveTempGreenHouseDataResult) {
-          res.sendStatus(200);
-        } else {
-          res.sendStatus(500);
-        }
-      });
+      await saveTempGreenHouseData(
+        ip,
+        macAddressGlobal,
+        temp,
+        humid,
+        soilMoisture,
+        ambientLight,
+        knowControllerResultData.farmId,
+        knowControllerResultData.greenHouseId,
+        // knowControllerResultData.projectId,
+        function (saveTempGreenHouseDataResult) {
+          if (saveTempGreenHouseDataResult) {
+            res.sendStatus(200);
+          } else {
+            res.sendStatus(500);
+          }
+        });
     } else if (type == "project") {
       if (typeof soilFertility === "undefined") {
         res.sendStatus(500);
         return;
       }
-      await saveTempProjectData(ip, macAddressGlobal, soilFertility, knowControllerResultData.farmId, knowControllerResultData.projectId, knowControllerResultData.greenHouseId, function (saveTempProjectDataResult) {
-        if (saveTempProjectDataResult) {
-          res.sendStatus(200);
-        } else {
-          res.sendStatus(500);
-        }
-      });
+      await saveTempProjectData(
+        ip,
+        macAddressGlobal,
+        soilFertility,
+        knowControllerResultData.farmId,
+        knowControllerResultData.projectId,
+        knowControllerResultData.greenHouseId,
+        function (saveTempProjectDataResult) {
+          if (saveTempProjectDataResult) {
+            res.sendStatus(200);
+          } else {
+            res.sendStatus(500);
+          }
+        });
     }
   }
 }
@@ -127,10 +144,10 @@ async function isMappedController(ip, piMacAddress) {
     piMacAddress: piMacAddress
   }, function (err, result) {
     if (err) {
-      knowControllerResultData = undefined;
+      knowControllerResultData = null;
       console.log("[HandleController] isMappedController (!err): " + err)
     } else if (!result) {
-      knowControllerResultData = undefined;
+      knowControllerResultData = null;
       console.log("[HandleController] isMappedController (!result): " + result);
     } else {
       knowControllerResultData = result;
