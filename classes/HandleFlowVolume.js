@@ -46,8 +46,10 @@ async function operation(req, res) {
             function (saveTempHistoryDataResult) {
                 if (saveTempHistoryDataResult) {
                     res.sendStatus(200);
+                    return;
                 } else {
                     res.sendStatus(500);
+                    return;
                 }
             }
         );
@@ -82,8 +84,10 @@ async function operation(req, res) {
             function (saveTempHistoryDataResult) {
                 if (saveTempHistoryDataResult) {
                     res.sendStatus(200);
+                    return;
                 } else {
                     res.sendStatus(500);
+                    return;
                 }
             }
         );
@@ -96,7 +100,6 @@ async function operation(req, res) {
         //     return;
         // }
     }
-    res.sendStatus(200);
 }
 
 async function getControllerData(ip, macAddressGlobal) {
