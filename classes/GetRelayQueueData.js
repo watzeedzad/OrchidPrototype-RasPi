@@ -90,6 +90,8 @@ function onOffPump(ip, state, type) {
     );
     request.get({
         url: "http://" + String(ip) + urlPart + "?params=" + command
+    }, {
+        timeout: 20000
     }, function (error, response, body) {
         console.log("[GetRelayQueueData] onOffPump (error): " + error);
         console.log("[GetRelayQueueData] onOffPump (response): " + response);
