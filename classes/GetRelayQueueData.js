@@ -88,13 +88,13 @@ function onOffPump(ip, state, type) {
         "?params=" +
         command
     );
-    request.get({
-        url: "http://" + String(ip) + urlPart + "?params=" + command
-    }, {
-        timeout: 20000
-    }, function (error, response, body) {
-        console.log("[GetRelayQueueData] onOffPump (error): " + error);
-        console.log("[GetRelayQueueData] onOffPump (response): " + response);
-        console.log("[GetRelayQueueData] onOffPump (body): " + body);
-    });
+    request.get(
+        "http://" + String(ip) + urlPart + "?params=" + command, {
+            timeout: 20000
+        },
+        function (error, response, body) {
+            console.log("[GetRelayQueueData] onOffPump (error): " + error);
+            console.log("[GetRelayQueueData] onOffPump (response): " + response);
+            console.log("[GetRelayQueueData] onOffPump (body): " + body);
+        });
 }
