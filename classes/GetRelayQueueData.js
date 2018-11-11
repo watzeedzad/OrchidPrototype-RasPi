@@ -80,21 +80,15 @@ function onOffPump(ip, state, type) {
     } else {
         command = 1
     }
-    console.log(
-        "[GetRelayQueueData] url: " +
-        "http://" +
-        String(ip) +
-        urlPart +
-        "?params=" +
-        command
-    );
+    let url = "http://" + String(ip) + urlPart + "?params=" + command;
+    console.log("[GetRelayQueueData] url: " + url);
     request.get(
-        "http://" + String(ip) + urlPart + "?params=" + command, {
+        url, {
             timeout: 20000
         },
         function (error, response, body) {
-            console.log("[GetRelayQueueData] onOffPump (error): " + error);
-            console.log("[GetRelayQueueData] onOffPump (response): " + response);
-            console.log("[GetRelayQueueData] onOffPump (body): " + body);
+            console.log("[GetRelayQueueData] onOffPump " + "(" + type + ") " + "(error) " + error);
+            console.log("[GetRelayQueueData] onOffPump " + "(" + type + ") " + "(response) " + response);
+            console.log("[GetRelayQueueData] onOffPump " + "(" + type + ") " + "(body) " + body);
         });
 }

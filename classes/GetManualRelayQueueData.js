@@ -72,20 +72,15 @@ function manualPump(ip, type, litre) {
     } else if (type == "moisture") {
         urlPart = "/manualMoisture";
     }
-    console.log(
-        "[GetRelayQueueData] url: " +
-        "http://" +
-        String(ip) +
-        urlPart +
-        "?params=" +
-        litre
-    );
-    request.get("http://" + String(ip) + urlPart + "?params=" + litre, {
+    let url = "http://" + String(ip) + urlPart + "?params=" + litre;
+    console.log("[GetRelayQueueData] url: " + url);
+    request.get(
+        url, {
             timeout: 20000
         },
         function (error, response, body) {
-            console.log("[GetRelayQueueData] onOffPump (error): " + error);
-            console.log("[GetRelayQueueData] onOffPump (response): " + response);
-            console.log("[GetRelayQueueData] onOffPump (body): " + body);
+            console.log("[GetManualRelayQueueData] onOffPump " + "(" + type + ") " + "(error) " + error);
+            console.log("[GetManualRelayQueueData] onOffPump " + "(" + type + ") " + "(response) " + response);
+            console.log("[GetManualRelayQueueData] onOffPump " + "(" + type + ") " + "(body) " + body);
         });
 }
