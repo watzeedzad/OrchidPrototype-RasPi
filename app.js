@@ -15,16 +15,16 @@ db_pass = process.env.DB_PASS;
 server_host = process.env.SERVER_HOST;
 macAddressGlobal = "";
 
-// macAddr.getMac(function (err, mac) {
-//   if (err) {
-//     console.log(err);
-//   }
-//   let splitChar = mac[2];
-//   macAddressGlobal = (mac.split(splitChar)).toString();
-//   macAddressGlobal = macAddressGlobal.toLowerCase();
-// });
+macAddr.getMac(function (err, mac) {
+  if (err) {
+    console.log(err);
+  }
+  let splitChar = mac[2];
+  macAddressGlobal = (mac.split(splitChar)).toString();
+  macAddressGlobal = macAddressGlobal.toLowerCase();
+});
 
-macAddressGlobal = "b8,27,eb,a7,78,ad";
+// macAddressGlobal = "b8,27,eb,a7,78,ad";
 
 //load babel(es6)
 require("babel-core/register");
