@@ -64,6 +64,12 @@ function removeRelayQueue(macAddress) {
 }
 
 function onOffPump(ip, state, type) {
+    if (type != "light") {
+        console.log("[GetRelayQueueData] not light, don't turn on while demo");
+        return;
+    } else {
+        console.log("[GetRelayQueueData] light, process futher");
+    }
     let urlPart = "";
     if (type == "water") {
         urlPart = "/waterPump";
