@@ -22,7 +22,7 @@ git clone https://github.com/watzeedzad/OrchidPrototype-RasPi.git
  npm install
  ```
 ## วิธีการรัน
- - ไปที่ root Floder และใช้คำสี่ง
+ - ไปที่ root folder และใช้คำสี่ง
  ```
  npm start
  ```
